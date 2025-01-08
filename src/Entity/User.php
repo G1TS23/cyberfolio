@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,7 +38,6 @@ class User
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 8, max: 255, minMessage: '8 characters minimum')]
     #[Assert\PasswordStrength]
-    #[Assert\NotBlank()]
     #[Assert\AtLeastOneOf([
         new Assert\Type(type: 'string', message: 'Must contain at least one character'),
         new Assert\Type(type: 'integer', message: 'Must contain at least one digit'),
@@ -47,11 +50,14 @@ class User
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'users')]
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'user')]
     private Collection $projects;
 
-    #[ORM\OneToOne(targetEntity: Profile::class, inversedBy: 'users')]
+    #[ORM\OneToOne(targetEntity: Profile::class, inversedBy: 'user')]
     private ?Profile $profile = null;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
 
     public function __construct()
     {
@@ -125,7 +131,11 @@ class User
 
     public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
@@ -173,6 +183,28 @@ class User
     public function setProfile(?Profile $profile): static
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

@@ -13,6 +13,12 @@ class Profile
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $headline = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $biography = null;
+
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $phone_number = null;
 
@@ -28,7 +34,7 @@ class Profile
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $country = null;
 
-    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'profiles')]
+    #[ORM\OneToOne(targetEntity: User::class, mappedBy: 'profile')]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -92,6 +98,30 @@ class Profile
     public function setCountry(?string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getHeadline(): ?string
+    {
+        return $this->headline;
+    }
+
+    public function setHeadline(?string $headline): static
+    {
+        $this->headline = $headline;
+
+        return $this;
+    }
+
+    public function getBiography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function setBiography(?string $biography): static
+    {
+        $this->biography = $biography;
 
         return $this;
     }

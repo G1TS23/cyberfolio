@@ -19,6 +19,10 @@ class UserType extends AbstractType
             ->add('email')
             ->add('password')
             ->add('github_url')
+            ->add('profile', EntityType::class, [
+                'class' => Profile::class,
+                'choice_label' => 'id',
+            ])
         ;
     }
 

@@ -15,6 +15,8 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('phone_number')
+            ->add('headline')
+            ->add('biography')
             ->add('address')
             ->add('zipcode')
             ->add('city')

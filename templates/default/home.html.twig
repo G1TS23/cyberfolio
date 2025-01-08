@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Project index{% endblock %}
 
 {% block body %}
+    <h1>Cyberfolio</h1>
+    <h2>{{ user.firstName | capitalize}} {{ user.lastName | capitalize }}</h2>
+    <h3>{{ profile.headline | capitalize }}</h3>
+    <p>{{ profile.biography | capitalize }}</p>
 
-<div class="example-wrapper">
-    <h1>Hello!</h1>
-    <i class="fa-brands fa-symfony"></i>
-
-    Manage site :
+    <h2>Projects : </h2>
     <ul>
-        <li><a href="{{ path('app_project_index') }}">Projects</a></li>
-        <li><a href="{{ path('app_technology_index') }}">Technologies</a></li>
-        <li><a href="{{ path('app_user_index') }}">Users</a></li>
-        <li><a href="{{ path('app_profile_index') }}">Profiles</a></li>
-    </ul>
+        {% for project in projects %}
+            <li>{{ project.title | capitalize }}</li>
+            <ul>
+                <li>Description : {{ project.description }}</li>
+                <li>
 
-</div>
+                    <a href="{{ project.githubUrl }}" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    <a href="{{ project.url }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
+                </li>
+                <li>
+                    {% for techno in project.technologies %}
+                        <i class="{{ techno.logo }}"></i>
+                    {% endfor %}
+                </li>
+
+            </ul>
+        {% else %}
+            <li>
+                no records found
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('app_default') }}">Back to home</a>
 {% endblock %}

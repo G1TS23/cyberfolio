@@ -40,7 +40,7 @@ class Project
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'projects')]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Technology::class, inversedBy: 'projects')]
+    #[ORM\ManyToMany(targetEntity: Technology::class, mappedBy: 'projects')]
     private ?Collection $technologies;
 
     public function __construct(){
