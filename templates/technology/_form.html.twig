@@ -1,4 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="example-wrapper">
+    <button class="btn btn-lg btn-primary">{{ button_label|default('Ajouter') }}</button>
+    <a class="btn btn-lg btn-dark" href="{{ path('app_technology_index') }}">Annuler</a>
+</div>
 {{ form_end(form) }}

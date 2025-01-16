@@ -27,7 +27,7 @@ class Technology
     #[ORM\Column(nullable: true)]
     private ?int $mastery_level = null;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'technologies')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'technologies')]
     private ?Collection $projects;
 
     public function __construct(){

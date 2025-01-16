@@ -14,14 +14,17 @@ class TechnologyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('logo')
-            ->add('version')
-            ->add('mastery_level')
-            ->add('projects', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => 'title',
-                'multiple' => true,
+            ->add('name', null, [
+                'label' => 'Nom'
+            ])
+            ->add('logo', null, [
+                'label' => 'Class fontawesome (ex: fa-brands fa-symfony)'
+            ])
+            ->add('version', null, [
+                'label' => 'Version'
+            ])
+            ->add('mastery_level', null, [
+                'label' => 'Niveau de maîtrise'
             ])
         ;
     }

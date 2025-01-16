@@ -7,6 +7,7 @@ use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,23 +16,43 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ProjectController extends AbstractController
 {
     #[Route(name: 'app_project_index', methods: ['GET'])]
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $projectRepository, Security $security): Response
     {
-        return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
-        ]);
+        $user = $security->getUser();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+
+        if ($isAdmin) {
+            return $this->render('project/index.html.twig', [
+                'projects' => $projectRepository->findAll(),
+            ]);
+        }
+            return $this->render('project/index.html.twig', [
+                'projects' => $projectRepository->findBy(['user' => $user]),
+            ]);
+
     }
 
     #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
+        $user = $security->getUser();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
         $project = new Project();
-        $form = $this->createForm(ProjectType::class, $project);
+        $form = $this->createForm(ProjectType::class, $project, [
+            'is_admin' => $isAdmin,
+            'current_user' => $user,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($project);
             $entityManager->flush();
+            /*foreach ($project->getTechnologies() as $technology) {
+                $technology->addProject($project);
+                $entityManager->persist($technology);
+                $entityManager->flush();
+            }*/
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -43,17 +64,33 @@ final class ProjectController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
-    public function show(Project $project): Response
+    public function show(Project $project, Security $security): Response
     {
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
+        $user = $security->getUser();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        if ($project->getUser() === $user || $isAdmin) {
+            return $this->render('project/show.html.twig', [
+                'project' => $project,
+            ]);
+        }
+        return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Project $project, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Project $project, EntityManagerInterface $entityManager, Security $security): Response
     {
-        $form = $this->createForm(ProjectType::class, $project);
+        $user = $security->getUser();
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+
+        if ($project->getUser() !== $user && !$isAdmin) {
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+
+        $form = $this->createForm(ProjectType::class, $project, [
+            'is_admin' => $isAdmin,
+            'current_user' => $user,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

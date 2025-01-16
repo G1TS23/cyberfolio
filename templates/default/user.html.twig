@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User dashboard{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>DASHBOARD</h1>
+        <div>
+            <a class="btn btn-lg btn-primary" href="{{ path('app_project_index') }}" type="button">Projets</a>
+        </div>
+        <div>
+            <a class="btn btn-lg btn-primary" href="{{ path('app_technology_index') }}" type="button">Technologies</a>
+        </div>
+        <div>
+            <a class="btn btn-lg btn-primary" href="{{ path('app_user_index') }}" type="button">Utilisateur</a>
+        </div>
+        <div>
+            <a class="btn btn-lg btn-primary" href="{{ path('app_profile_index') }}" type="button">Profil</a>
+        </div>
+        <div>
+            <a class="btn btn-lg btn-primary" href="{{ path('app_home', { 'id': app.user.id }) }}" type="button">Cyberfolio</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profile index{% endblock %}
+{% block title %}PROFILE INDEX{% endblock %}
 
 {% block body %}
-    <h1>Profile index</h1>
-
+    <div class="example-wrapper">
+        <a class="btn btn-success" href="{{ path('app_profile_new') }}">Ajouter un profil</a>
+    </div>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Headline</th>
-                <th>Biography</th>
-                <th>Phone_number</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Sous-titre</th>
+            <th>Biographie</th>
+            <th>Numéro de téléphone</th>
+            <th>Adresse</th>
+            <th>Zipcode</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for profile in profiles %}
@@ -31,18 +32,18 @@
                 <td>{{ profile.city }}</td>
                 <td>{{ profile.country }}</td>
                 <td>
-                    <a href="{{ path('app_profile_show', {'id': profile.id}) }}">show</a>
-                    <a href="{{ path('app_profile_edit', {'id': profile.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-dark"
+                       href="{{ path('app_profile_show', {'id': profile.id}) }}">Afficher</a>
+                    <a class="btn btn-sm btn-dark"
+                       href="{{ path('app_profile_edit', {'id': profile.id}) }}">Modifier</a>
+                    <a class="btn btn-sm btn-danger" href="{{ path('app_profile_delete', {'id': profile.id}) }}">Supprimer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="9">Pas de profil</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_profile_new') }}">Create new</a>
-    <a href="{{ path('app_default') }}">Back to home</a>
 {% endblock %}

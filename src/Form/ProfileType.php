@@ -14,16 +14,26 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('phone_number')
-            ->add('headline')
-            ->add('biography')
-            ->add('address')
-            ->add('zipcode')
-            ->add('city')
-            ->add('country')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('phone_number', null, [
+                'label' => 'Numéro de téléphone'
+            ])
+            ->add('headline', null, [
+                'label' => 'Sous-titre'
+            ])
+            ->add('biography', null, [
+                'label' => 'Biographie'
+            ])
+            ->add('address', null, [
+                'label' => 'Adresse'
+            ])
+            ->add('zipcode', null, [
+                'label' => 'Code postal'
+            ])
+            ->add('city', null, [
+                'label' => 'Ville'
+            ])
+            ->add('country', null, [
+                'label' => 'Pays'
             ])
         ;
     }

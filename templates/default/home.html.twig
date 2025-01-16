@@ -3,34 +3,67 @@
 {% block title %}Project index{% endblock %}
 
 {% block body %}
-    <h1>Cyberfolio</h1>
-    <h2>{{ user.firstName | capitalize}} {{ user.lastName | capitalize }}</h2>
-    <h3>{{ profile.headline | capitalize }}</h3>
-    <p>{{ profile.biography | capitalize }}</p>
 
-    <h2>Projects : </h2>
-    <ul>
-        {% for project in projects %}
-            <li>{{ project.title | capitalize }}</li>
-            <ul>
-                <li>Description : {{ project.description }}</li>
-                <li>
-
-                    <a href="{{ project.githubUrl }}" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    <a href="{{ project.url }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
-                </li>
-                <li>
-                    {% for techno in project.technologies %}
-                        <i class="{{ techno.logo }}"></i>
-                    {% endfor %}
-                </li>
-
-            </ul>
-        {% else %}
-            <li>
-                no records found
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{{ path('app_default') }}">Back to home</a>
+    <div class="container">
+        <div class="left-container">
+            <div class="bio-container">
+                <div class="full-name turquoise_txt">
+                    {{ user.firstName | capitalize }} {{ user.lastName | capitalize }}
+                </div>
+                <div class="headline">
+                    {{ profile.headline | capitalize }}
+                </div>
+                <div class="biography">
+                    {{ profile.biography ? profile.biography | capitalize : '' }}
+                </div>
+            </div>
+            <div class="links-container">
+                <a href="#" class="link turquoise_txt">Projets</a>
+                <a href="#" class="link">Infos</a>
+                <a href="#" class="link">Contact</a>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="projects">
+                {% for project in projects %}
+                    <div class="project">
+                        <div class="project-infos">
+                            <div class="screenshot">
+                                <img src="" alt="{{ project.title }}">
+                            </div>
+                            <div class="project-links">
+                                {% if project.githubUrl %}
+                                    <a href="{{ project.githubUrl }}" target="_blank" class="project-link">GitHub<i
+                                                class="fa-brands fa-github"></i></a>
+                                {% endif %}
+                                {% if project.url %}
+                                    <a href="{{ project.url }}" target="_blank" class="project-link">Site Web<i
+                                                class="fa-solid fa-globe"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-title-desc">
+                                <div class="project-title">
+                                    {{ project.title | capitalize }}
+                                </div>
+                                <div class="project-description">
+                                    {{ project.description | capitalize }}
+                                </div>
+                            </div>
+                            <div class="project-technologies">
+                                {% for techno in project.technologies %}
+                                    <span class="technology turquoise_bg">
+                                <i class="{{ techno.logo }}"></i>
+                                {{ techno.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    no records found
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

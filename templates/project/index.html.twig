@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}PROJET INDEX{% endblock %}
 
 {% block body %}
-    <h1>Project index</h1>
-
+    <div class="example-wrapper">
+        <a class="btn btn-success" href="{{ path('app_project_new') }}">Ajouter un projet</a>
+    </div>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Screenshot</th>
-                <th>Created_at</th>
-                <th>Github_url</th>
-                <th>Url</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Screenshot</th>
+            <th>Créé le</th>
+            <th>URL Github</th>
+            <th>Url</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for project in projects %}
@@ -29,18 +30,18 @@
                 <td>{{ project.githubUrl }}</td>
                 <td>{{ project.url }}</td>
                 <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-dark"
+                       href="{{ path('app_project_show', {'id': project.id}) }}">Afficher</a>
+                    <a class="btn btn-sm btn-dark"
+                       href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+                    <a class="btn btn-sm btn-danger" href="{{ path('app_project_delete', {'id': project.id}) }}">Supprimer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas de projet</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_project_new') }}">Create new</a>
-    <a href="{{ path('app_default') }}">Back to home</a>
 {% endblock %}

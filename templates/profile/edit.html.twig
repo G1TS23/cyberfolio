@@ -3,11 +3,9 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block body %}
-    <h1>Edit Profile</h1>
-
-    {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_profile_index') }}">back to list</a>
-
+    <h1>Modification du profil</h1>
+    {{ include('profile/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {% if is_granted('ROLE_ADMIN') %}
     {{ include('profile/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

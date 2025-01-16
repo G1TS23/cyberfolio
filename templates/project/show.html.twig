@@ -3,44 +3,42 @@
 {% block title %}Project{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
-
+    <h1>Projet</h1>
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ project.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <th>Screenshot</th>
-                <td>{{ project.screenshot }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Github_url</th>
-                <td>{{ project.githubUrl }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ project.url }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ project.id }}</td>
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ project.title }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ project.description }}</td>
+        </tr>
+        <tr>
+            <th>Screenshot</th>
+            <td>{{ project.screenshot }}</td>
+        </tr>
+        <tr>
+            <th>Créé le</th>
+            <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>URL Github</th>
+            <td>{{ project.githubUrl }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ project.url }}</td>
+        </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_project_index') }}">back to list</a>
-
-    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-
-    {{ include('project/_delete_form.html.twig') }}
+    <div class="example-wrapper">
+        <a class="btn btn-lg btn-primary" href="{{ path('app_project_edit', {'id': project.id}) }}">Modifier</a>
+        {{ include('project/_delete_form.html.twig') }}
+        <a class="btn btn-lg btn-dark" href="{{ path('app_project_index') }}">Annuler</a>
+    </div>
 {% endblock %}
