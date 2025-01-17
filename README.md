@@ -91,19 +91,25 @@ $ php bin/console app:promote-user mail@domain.com
 - [x] Dashboard admin
 - [x] Dashboard user
 - [x] [Maquette Figma](https://www.figma.com/proto/8TROFXo2sJLoTgsbkxUWxe/Untitled?node-id=32-711&t=GFIveranbQIGQK26-1)
-- [x] Front End
+- [x] Front End :
+  - [x] Section Projets
+  - [ ] Section Infos
+  - [ ] Section Contact
+- [x] Ajout de l'upload d'image pour le screenshot
 
 ## Difficultés rencontrées et solutions
 
 La principale difficulté à été la mise en place de l'authentification et des la sécurisation des routes. Grâce au
 support de cours et à la documention Symfony j'ai finalement réussit à tout mettre en place. J'ai aussi du adapter ces
-ressources pour distinguer la gestion l'administration entre l'admin et l'utilisateur.
+ressources pour distinguer la gestion de l'administration entre l'admin et l'utilisateur.
 
 ## Bilan des acquis
 
-- À compléter
-- À compléter
-- À compléter
-- Etc.
+- Mise en place d'une MCD
+- Création des entités et du CRUD avec Doctrine
+- Mise en place de l'authentification et de la sécurisation des routes
+- Utilisation des assets et des templates Twig
 
 ## Remarques complémentaires
+
+- Exemple de [Cyberfolio](127.0.0.1:8000/cyberfolio/7) après l'importation du fichier `cyberfolio.sql`
