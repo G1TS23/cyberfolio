@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : jeu. 16 jan. 2025 à 21:09
+-- Généré le : ven. 17 jan. 2025 à 20:53
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -101,11 +101,13 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `user_id`, `title`, `description`, `screenshot`, `created_at`, `github_url`, `url`) VALUES
-(1, 7, 'pont chaban', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet ex quis nunc tincidunt efficitur. Integer placerat est id urna pharetra, vel vehicula erat elementum.', NULL, '2024-12-15 18:10:00', 'https://github.com/G1TS23/pont-chaban', 'https://pont-chaban.netlify.app'),
-(2, 7, 'calulatrice', 'refaire une calcuatrice', NULL, '2025-01-06 15:29:00', 'https://github.com/G1TS23/CALC', 'https://of-calc.netlify.app'),
-(3, 7, 'Démineur', 'Faire un démineur en Angualr', NULL, '2025-01-08 10:34:00', 'https://github.com/G1TS23/DEMINEUR', 'https://boom-boom-boom.netlify.app'),
-(4, 7, 'Test', 'Bla Bla Bla', NULL, '2025-01-09 16:39:00', 'GitHub', 'url'),
-(5, 7, 'erzer', 'serrer', 'ze', '2025-01-08 17:08:00', 'zrzerze', 'zerzer');
+(1, 7, 'pont chaban', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet ex quis nunc tincidunt efficitur. Integer placerat est id urna pharetra, vel vehicula erat elementum.', '678aa16bd81ff.png', '2024-12-15 18:10:00', 'https://github.com/G1TS23/pont-chaban', 'https://pont-chaban.netlify.app'),
+(2, 7, 'calulatrice', 'refaire une calcuatrice', '678aa14fd6d2b.png', '2025-01-06 15:29:00', 'https://github.com/G1TS23/CALC', 'https://of-calc.netlify.app'),
+(3, 7, 'Démineur', 'Faire un démineur en Angualr', '678aa15d8fdab.png', '2025-01-08 10:34:00', 'https://github.com/G1TS23/DEMINEUR', 'https://boom-boom-boom.netlify.app'),
+(4, 7, 'Test', 'Bla Bla Bla', '678aa184ec69b.png', '2025-01-09 16:39:00', 'GitHub', 'url'),
+(5, 7, 'erzer', 'serrer', '678aa18c4f82f.png', '2025-01-08 17:08:00', 'zrzerze', 'zerzer'),
+(6, 6, 'Test', 'test de description', '678aa081c382e.png', '2025-01-17 19:08:00', NULL, NULL),
+(7, 6, 'test screenshot', 'test screenshot', '678a9fc16d233.png', '2025-01-17 19:21:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,12 @@ INSERT INTO `project_technology` (`project_id`, `technology_id`) VALUES
 (4, 2),
 (4, 3),
 (5, 5),
-(5, 6);
+(5, 6),
+(6, 1),
+(6, 2),
+(7, 1),
+(7, 2),
+(7, 3);
 
 -- --------------------------------------------------------
 
@@ -256,7 +263,7 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT pour la table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `technology`
