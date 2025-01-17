@@ -7,6 +7,7 @@ use App\Entity\Technology;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -25,7 +26,13 @@ class ProjectType extends AbstractType
                 'label' => 'Description du projet'
             ])
             ->add('screenshot', null, [
-                'label' => 'Screenshot'
+                'label' => 'Screenshot',
+                'required' => false,
+            ])
+            ->add('file', FileType::class, [
+                'label' => 'Télécharger un screenshot (max. 2Mo)', // Label affiché
+                'required' => false, // Le fichier peut être facultatif
+                'mapped' => false, // Indique que ce champ ne correspond pas directement à une propriété de l'entité
             ])
             ->add('created_at', null, [
                 'widget' => 'single_text',

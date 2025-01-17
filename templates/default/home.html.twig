@@ -29,7 +29,7 @@
                     <div class="project">
                         <div class="project-infos">
                             <div class="screenshot">
-                                <img src="" alt="{{ project.title }}">
+                                <img src="{{ asset('uploads/' ~ project.screenshot) }}" alt="{{ project.title }}">
                             </div>
                             <div class="project-links">
                                 {% if project.githubUrl %}

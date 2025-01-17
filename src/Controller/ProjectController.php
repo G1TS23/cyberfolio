@@ -8,6 +8,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -45,6 +46,23 @@ final class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form->get('file')->getData();
+
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+
+                $newFilename = uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move($uploadsDirectory, $newFilename);
+                } catch (FileException $e) {
+                    // Gestion de l'erreur d'upload
+                }
+
+                // Enregistrer le chemin du fichier ou son nom dans l'entité
+                $project->setScreenshot($newFilename);
+            }
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -94,6 +112,24 @@ final class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form->get('file')->getData();
+
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+
+                $newFilename = uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move($uploadsDirectory, $newFilename);
+                } catch (FileException $e) {
+                    // Gestion de l'erreur d'upload
+                }
+
+                // Enregistrer le chemin du fichier ou son nom dans l'entité
+                $project->setScreenshot($newFilename);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
