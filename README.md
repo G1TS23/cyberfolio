@@ -23,6 +23,11 @@ $ cd cyberfolio/
 $ composer install
 ````
 
+- Exécuter la commande pour mettre à jour les bibliothèques :
+```
+$ php bin/console importmap:install
+```
+
 ## Configurer la base de données
 
 - Copier le contenu du fichier .env dans un fichier env.local à la racine du projet
@@ -37,6 +42,8 @@ $ composer install
 # DATABASE_URL="mysql://<b>app:!ChangeMe!</b>@127.0.0.1:3306/cyberfolio?serverVersion=10.4.28-MariaDB&charset=utf8mb4"
 # DATABASE_URL="postgresql://<b>app:!ChangeMe!</b>@127.0.0.1:5432/cyberfolio?serverVersion=16&charset=utf8"
 </pre>
+
+- Créer un fichier .env à la racine du projet et copier le contenu du fichier .env.local
 
 - Créer la base de données :
 
@@ -60,7 +67,7 @@ $ symfony serve
 
 - Aller à l'url [127.0.0.1:8000/](127.0.0.1:8000/)
 - Créer un compte standard avec votre adresse email (ex: mail@domain.com)
-- Ensuite dans la console tapper la commande :
+- Ensuite dans la console exécuter la commande :
 
 ```
 $ php bin/console app:promote-user mail@domain.com
